@@ -87,7 +87,7 @@ public class GameLogic {
             if (brugteBogstaver.contains(bogstav)) {
                 synligtOrd = synligtOrd + bogstav;
             } else {
-                synligtOrd = synligtOrd + "*";
+                synligtOrd = synligtOrd + "_  ";
                 spilletErVundet = false;
             }
         }
