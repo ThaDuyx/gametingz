@@ -53,6 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.125"
-        app:srcCompat="@drawable/galge" />
+        app:srcCompat="@drawable/forkert6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

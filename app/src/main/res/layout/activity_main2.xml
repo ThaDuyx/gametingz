@@ -57,7 +57,7 @@
 
     <Button
         android:id="@+id/guessBtn"
-        android:layout_width="72dp"
+        android:layout_width="75dp"
         android:layout_height="50dp"
         android:text="Guess"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -70,7 +70,7 @@
     <Button
         android:id="@+id/resetBtn"
         android:layout_width="120dp"
-        android:layout_height="36dp"
+        android:layout_height="39dp"
         android:text="Play Again"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

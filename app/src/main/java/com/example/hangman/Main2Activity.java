@@ -35,7 +35,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
         guessBtn.setOnClickListener(this);
         resetBtn.setOnClickListener(this);
         resetBtn.setVisibility(View.GONE);
-        guessFrame.setText("");
+        guessFrame.setText("Guess the Word");
         logic.logStatus();
 
 
@@ -50,42 +50,37 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
             wordFrame.setText(logic.getSynligtOrd());
             hangManpic.setImageResource(R.drawable.galge);
             guessFrame.setText("Guess the new word");
+            editGuess.setError(null);
+        } else if(v == guessBtn) {
+            String guess = editGuess.getText().toString();
+
+            if (guess.length() != 1) {
+                editGuess.setError("1 letter at a time");
+                return;
+            }
+
+            editGuess.setError(null);
+            logic.gætBogstav(guess);
+            editGuess.setText("");
+
+            if (logic.getAntalForkerteBogstaver() == 0) {
+                hangManpic.setImageResource(R.drawable.galge);
+            } else if (logic.getAntalForkerteBogstaver() == 1) {
+                hangManpic.setImageResource(R.drawable.forkert1);
+            } else if (logic.getAntalForkerteBogstaver() == 2) {
+                hangManpic.setImageResource(R.drawable.forkert2);
+            } else if (logic.getAntalForkerteBogstaver() == 3) {
+                hangManpic.setImageResource(R.drawable.forkert3);
+            } else if (logic.getAntalForkerteBogstaver() == 4) {
+                hangManpic.setImageResource(R.drawable.forkert4);
+            } else if (logic.getAntalForkerteBogstaver() == 5) {
+                hangManpic.setImageResource(R.drawable.forkert5);
+            } else if (logic.getAntalForkerteBogstaver() == 6) {
+                hangManpic.setImageResource(R.drawable.forkert6);
+            }
+
+            updateScreen();
         }
-
-        String guess = editGuess.getText().toString();
-        if (guess.length() != 1) {
-            editGuess.setError("1 letter at a time");
-            return;
-        }
-
-        logic.gætBogstav(guess);
-        editGuess.setText("");
-
-        if(logic.getAntalForkerteBogstaver() == 0){
-            hangManpic.setImageResource(R.drawable.galge);
-        } else if(logic.getAntalForkerteBogstaver() == 1){
-            hangManpic.setImageResource(R.drawable.forkert1);
-        } else if(logic.getAntalForkerteBogstaver() == 2){
-            hangManpic.setImageResource(R.drawable.forkert2);
-        } else if(logic.getAntalForkerteBogstaver() == 3){
-            hangManpic.setImageResource(R.drawable.forkert3);
-        } else if(logic.getAntalForkerteBogstaver() == 4){
-            hangManpic.setImageResource(R.drawable.forkert4);
-        } else if(logic.getAntalForkerteBogstaver() == 5){
-            hangManpic.setImageResource(R.drawable.forkert5);
-        } else if(logic.getAntalForkerteBogstaver() == 6){
-            hangManpic.setImageResource(R.drawable.forkert6);
-        }
-
-       /* if(logic.erSpilletSlut()){
-            logic.nulstil();
-        }
-        if(guessBtn.getText().toString() == "Play"){
-            logic.nulstil();
-            guessBtn.setText("Guess");
-        }*/
-
-        updateScreen();
     }
 
     private void updateScreen(){
