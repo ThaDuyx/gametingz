@@ -1,6 +1,8 @@
 package com.example.hangman;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
+public class GamePage extends AppCompatActivity implements View.OnClickListener {
 
     GameLogic logic = new GameLogic();
     Button guessBtn;
@@ -21,7 +23,7 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_game_page);
 
 
         wordFrame = findViewById(R.id.wordFrame);
@@ -90,12 +92,13 @@ public class Main2Activity extends AppCompatActivity implements View.OnClickList
 
         if (logic.erSpilletVundet()) {
             guessFrame.setText("\nDu har vundet");
-            //guessBtn.setText("Play");
+            Intent intent = new Intent(this, WonPage.class);
+            startActivity(intent);
             resetBtn.setVisibility(View.VISIBLE);
         }
         if (logic.erSpilletTabt()) {
-            wordFrame.setText("Du har tabt, ordet var : " + logic.getOrdet());
-            //guessBtn.setText("Play");
+            Intent intent = new Intent(this, LostPage.class);
+            startActivity(intent);
             resetBtn.setVisibility(View.VISIBLE);
         }
 

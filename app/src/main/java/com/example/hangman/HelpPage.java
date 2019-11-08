@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Main3Activity extends AppCompatActivity implements View.OnClickListener {
+public class HelpPage extends AppCompatActivity implements View.OnClickListener {
 
     int counter = 1;
     Button rightBtn;
@@ -18,7 +18,7 @@ public class Main3Activity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.activity_help_page);
 
         rightBtn = findViewById(R.id.rightBtn);
         leftBtn = findViewById(R.id.leftBtn);

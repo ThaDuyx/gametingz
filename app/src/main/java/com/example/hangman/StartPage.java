@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class StartPage extends AppCompatActivity implements View.OnClickListener {
 
     Button startGameBtn;
     Button helpBtn;
@@ -15,12 +15,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_start_page);
 
         startGameBtn = findViewById(R.id.startGameBtn);
         helpBtn = findViewById(R.id.helpBtn);
-
 
         startGameBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
@@ -30,16 +28,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-
         if(v == startGameBtn){
-          Intent intent = new Intent(this, Main2Activity.class);
+          Intent intent = new Intent(this, GamePage.class);
           startActivity(intent);
 
         } else if(v == helpBtn){
-            Intent intent = new Intent(this, Main3Activity.class);
+            Intent intent = new Intent(this, HelpPage.class);
             startActivity(intent);
         }
-
-
     }
 }
