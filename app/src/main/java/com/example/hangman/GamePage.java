@@ -39,20 +39,18 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         resetBtn.setVisibility(View.GONE);
         guessFrame.setText("Guess the Word");
         logic.logStatus();
-
-
     }
 
     @Override
     public void onClick(View v) {
 
         if( v == resetBtn && logic.erSpilletSlut()){
-            logic.nulstil();
+            /*logic.nulstil();
             resetBtn.setVisibility(View.GONE);
             wordFrame.setText(logic.getSynligtOrd());
             hangManpic.setImageResource(R.drawable.galge);
             guessFrame.setText("Guess the new word");
-            editGuess.setError(null);
+            editGuess.setError(null);*/
         } else if(v == guessBtn) {
             String guess = editGuess.getText().toString();
 
@@ -91,15 +89,15 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         guessFrame.setText("\n\nDu har " + logic.getAntalForkerteBogstaver() + " forkerte:" + logic.getBrugteBogstaver());
 
         if (logic.erSpilletVundet()) {
-            guessFrame.setText("\nDu har vundet");
             Intent intent = new Intent(this, WonPage.class);
+            intent.putExtra("gameWord", logic.getOrdet());
+            intent.putExtra("Guesses", logic.getAntalForkerteBogstaver() + logic.getOrdet().length());
             startActivity(intent);
-            resetBtn.setVisibility(View.VISIBLE);
         }
         if (logic.erSpilletTabt()) {
             Intent intent = new Intent(this, LostPage.class);
+            intent.putExtra("gameWord", logic.getOrdet());
             startActivity(intent);
-            resetBtn.setVisibility(View.VISIBLE);
         }
 
     }
