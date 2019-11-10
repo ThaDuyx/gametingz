@@ -40,7 +40,6 @@ public class LostPage extends AppCompatActivity implements View.OnClickListener 
         looseHolder++;
         spe.putInt("losses", looseHolder);
         spe.apply();
-
     }
 
     @Override
@@ -55,4 +54,5 @@ public class LostPage extends AppCompatActivity implements View.OnClickListener 
             startActivity(intent);
         }
     }
+
 }

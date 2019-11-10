@@ -67,9 +67,6 @@ public class WonPage extends AppCompatActivity implements View.OnClickListener {
         winHolder++;
         spe.putInt("wins", winHolder);
         spe.apply();
-
-
-
     }
 
     @Override

@@ -2,59 +2,101 @@ package com.example.hangman;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import java.lang.ref.WeakReference;
 
 public class GamePage extends AppCompatActivity implements View.OnClickListener {
 
     GameLogic logic = new GameLogic();
     Button guessBtn;
-    Button resetBtn;
     Button backBtn;
     EditText editGuess;
     TextView wordFrame;
     TextView guessFrame;
     ImageView hangManpic;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_page);
 
-
         wordFrame = findViewById(R.id.wordFrame);
         guessFrame = findViewById(R.id.guessFrame);
         guessBtn = findViewById(R.id.guessBtn);
-        resetBtn = findViewById(R.id.resetBtn);
         backBtn = findViewById(R.id.button3);
         editGuess = findViewById(R.id.editGuess);
         hangManpic = findViewById(R.id.hangmanPic);
 
         wordFrame.setText(logic.getSynligtOrd());
         guessBtn.setOnClickListener(this);
-        resetBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
-        resetBtn.setVisibility(View.GONE);
         guessFrame.setText("Guess the Word");
-        logic.logStatus();
+
+        //Brugt til AsyncTask metoden
+        //new GetWordTask(this, logic).execute();
     }
+
+    //Jeg prøvede at bruge en metode som blev udgivet på discord af en af hjælpelærene.
+    //Nedenstående kode er taget der fra. Jeg startede med at prøve at gøre det selv.
+    //Men endte til sidste med at gøre det som den udgivne metode. Men denne kunne jeg heller
+    //ikke få til at virke. Ved ikke om det er koden eller "hentOrdFraRegneark()" metoden der er problemer med.
+    //Long story short, prøvede at få AsyncTask til at virke men fejlede.
+    //------------------------------------------------------------------
+   /*private void setWord(){wordFrame.setText(logic.getSynligtOrd());}
+
+    @SuppressLint("SetTextI18n")
+    private void showErrorMessage() {
+        wordFrame.setText("Could not retrieve words");
+    }
+
+    private static class GetWordTask extends AsyncTask<String, String, Exception>{
+
+        private final WeakReference<GamePage> activityRef;
+        private final GameLogic logic;
+
+        private GetWordTask(GamePage activity, GameLogic logic) {
+            this.activityRef = new WeakReference<>(activity);
+            this.logic = logic;
+        }
+
+        @Override
+        protected Exception doInBackground(String... strings) {
+            try {
+                logic.hentOrdFraRegneark("2");
+                logic.nulstil();
+            } catch (Exception e) {
+                return e;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Exception e) {
+            if(activityRef.get() != null){
+                if (e != null){
+                    activityRef.get().showErrorMessage();
+                } else {
+                    activityRef.get().setWord();
+                }
+            }
+        }
+    }*/
+    //------------------------------------------------------------------
 
     @Override
     public void onClick(View v) {
 
-        if( v == resetBtn && logic.erSpilletSlut()){
-            /*logic.nulstil();
-            resetBtn.setVisibility(View.GONE);
-            wordFrame.setText(logic.getSynligtOrd());
-            hangManpic.setImageResource(R.drawable.galge);
-            guessFrame.setText("Guess the new word");
-            editGuess.setError(null);*/
-        } else if(v == guessBtn) {
+        if(v == guessBtn) {
             String guess = editGuess.getText().toString();
 
             if (guess.length() != 1) {
@@ -90,7 +132,6 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void updateScreen(){
-
         wordFrame.setText(logic.getSynligtOrd());
         guessFrame.setText("\n\nDu har " + logic.getAntalForkerteBogstaver() + " forkerte:" + logic.getBrugteBogstaver());
 
@@ -105,9 +146,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
             intent.putExtra("gameWord", logic.getOrdet());
             startActivity(intent);
         }
-
     }
-
 }
 
 

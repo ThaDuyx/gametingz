@@ -1,5 +1,7 @@
 package com.example.hangman;
 
+import android.os.AsyncTask;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -145,28 +147,28 @@ public class GameLogic {
      * Hent ord fra DRs forside (https://dr.dk)
      */
     public void hentOrdFraDr() throws Exception {
-        String data = hentUrl("https://dr.dk");
-        //System.out.println("data = " + data);
+            String data = hentUrl("https://dr.dk");
+            //System.out.println("data = " + data);
 
-        data = data.substring(data.indexOf("<body")). // fjern headere
-                replaceAll("<.+?>", " ").toLowerCase(). // fjern tags
-                replaceAll("&#198;", "æ"). // erstat HTML-tegn
-                replaceAll("&#230;", "æ"). // erstat HTML-tegn
-                replaceAll("&#216;", "ø"). // erstat HTML-tegn
-                replaceAll("&#248;", "ø"). // erstat HTML-tegn
-                replaceAll("&oslash;", "ø"). // erstat HTML-tegn
-                replaceAll("&#229;", "å"). // erstat HTML-tegn
-                replaceAll("[^a-zæøå]", " "). // fjern tegn der ikke er bogstaver
-                replaceAll(" [a-zæøå] ", " "). // fjern 1-bogstavsord
-                replaceAll(" [a-zæøå][a-zæøå] ", " "); // fjern 2-bogstavsord
+            data = data.substring(data.indexOf("<body")). // fjern headere
+                    replaceAll("<.+?>", " ").toLowerCase(). // fjern tags
+                    replaceAll("&#198;", "æ"). // erstat HTML-tegn
+                    replaceAll("&#230;", "æ"). // erstat HTML-tegn
+                    replaceAll("&#216;", "ø"). // erstat HTML-tegn
+                    replaceAll("&#248;", "ø"). // erstat HTML-tegn
+                    replaceAll("&oslash;", "ø"). // erstat HTML-tegn
+                    replaceAll("&#229;", "å"). // erstat HTML-tegn
+                    replaceAll("[^a-zæøå]", " "). // fjern tegn der ikke er bogstaver
+                    replaceAll(" [a-zæøå] ", " "). // fjern 1-bogstavsord
+                    replaceAll(" [a-zæøå][a-zæøå] ", " "); // fjern 2-bogstavsord
 
-        System.out.println("data = " + data);
-        System.out.println("data = " + Arrays.asList(data.split("\\s+")));
-        muligeOrd.clear();
-        muligeOrd.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
+            System.out.println("data = " + data);
+            System.out.println("data = " + Arrays.asList(data.split("\\s+")));
+            muligeOrd.clear();
+            muligeOrd.addAll(new HashSet<String>(Arrays.asList(data.split(" "))));
 
-        System.out.println("muligeOrd = " + muligeOrd);
-        nulstil();
+            System.out.println("muligeOrd = " + muligeOrd);
+            nulstil();
     }
 
 
@@ -201,5 +203,24 @@ public class GameLogic {
 
         System.out.println("muligeOrd = " + muligeOrd);
         nulstil();
+    }
+
+
+    public class startAsyncTask extends AsyncTask<String, String, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            try {
+                hentOrdFraDr();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+        }
     }
 }
