@@ -15,6 +15,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
     GameLogic logic = new GameLogic();
     Button guessBtn;
     Button resetBtn;
+    Button backBtn;
     EditText editGuess;
     TextView wordFrame;
     TextView guessFrame;
@@ -30,12 +31,14 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         guessFrame = findViewById(R.id.guessFrame);
         guessBtn = findViewById(R.id.guessBtn);
         resetBtn = findViewById(R.id.resetBtn);
+        backBtn = findViewById(R.id.button3);
         editGuess = findViewById(R.id.editGuess);
         hangManpic = findViewById(R.id.hangmanPic);
 
         wordFrame.setText(logic.getSynligtOrd());
         guessBtn.setOnClickListener(this);
         resetBtn.setOnClickListener(this);
+        backBtn.setOnClickListener(this);
         resetBtn.setVisibility(View.GONE);
         guessFrame.setText("Guess the Word");
         logic.logStatus();
@@ -80,6 +83,9 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
             }
 
             updateScreen();
+        } else if(v == backBtn){
+            Intent intent = new Intent(this, StartPage.class);
+            startActivity(intent);
         }
     }
 
