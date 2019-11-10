@@ -40,12 +40,6 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         lostHolder = sp.getInt("losses",0);
         looseHolder.setText(Integer.toString(lostHolder));
 
-
-
-
-
-
-
     }
 
     @Override

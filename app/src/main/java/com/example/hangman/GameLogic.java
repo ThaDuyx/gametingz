@@ -1,7 +1,5 @@
 package com.example.hangman;
 
-import android.os.AsyncTask;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +23,7 @@ public class GameLogic {
     private boolean spilletErTabt;
 
     public GameLogic() {
+       /*
         muligeOrd.add("bil");
         muligeOrd.add("computer");
         muligeOrd.add("programmering");
@@ -35,6 +34,7 @@ public class GameLogic {
         muligeOrd.add("solsort");
         muligeOrd.add("nitten");
         nulstil();
+        */
     }
 
 
@@ -203,24 +203,5 @@ public class GameLogic {
 
         System.out.println("muligeOrd = " + muligeOrd);
         nulstil();
-    }
-
-
-    public class startAsyncTask extends AsyncTask<String, String, String>{
-
-        @Override
-        protected String doInBackground(String... strings) {
-            try {
-                hentOrdFraDr();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-        }
     }
 }

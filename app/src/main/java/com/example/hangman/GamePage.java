@@ -23,8 +23,6 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
     TextView guessFrame;
     ImageView hangManpic;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,28 +41,27 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         guessFrame.setText("Guess the Word");
 
         //Brugt til AsyncTask metoden
-        //new GetWordTask(this, logic).execute();
+        new wordsFromSheets(this, logic).execute();
     }
 
-    //Jeg prøvede at bruge en metode som blev udgivet på discord af en af hjælpelærene.
-    //Nedenstående kode er taget der fra. Jeg startede med at prøve at gøre det selv.
-    //Men endte til sidste med at gøre det som den udgivne metode. Men denne kunne jeg heller
-    //ikke få til at virke. Ved ikke om det er koden eller "hentOrdFraRegneark()" metoden der er problemer med.
-    //Long story short, prøvede at få AsyncTask til at virke men fejlede.
+    // Jeg sad i noget tid og prøvede at lave AsyncTask opgaven men uden held.
+    // Men en af hjælpelærene udgav en metode på discord som endte med at ligne meget hvad han havde lavet.
+    // Nedenstående kode er taget der fra. Jeg startede med at prøve at gøre det selv.
+    // Men endte til sidst med at gøre det som den udgivne metode.
     //------------------------------------------------------------------
-   /*private void setWord(){wordFrame.setText(logic.getSynligtOrd());}
+   private void setWord(){wordFrame.setText(logic.getSynligtOrd());}
 
     @SuppressLint("SetTextI18n")
     private void showErrorMessage() {
         wordFrame.setText("Could not retrieve words");
     }
 
-    private static class GetWordTask extends AsyncTask<String, String, Exception>{
+    private static class wordsFromSheets extends AsyncTask<String, String, Exception>{
 
         private final WeakReference<GamePage> activityRef;
         private final GameLogic logic;
 
-        private GetWordTask(GamePage activity, GameLogic logic) {
+        private wordsFromSheets(GamePage activity, GameLogic logic) {
             this.activityRef = new WeakReference<>(activity);
             this.logic = logic;
         }
@@ -90,7 +87,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
                 }
             }
         }
-    }*/
+    }
     //------------------------------------------------------------------
 
     @Override
@@ -139,6 +136,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
             Intent intent = new Intent(this, WonPage.class);
             intent.putExtra("gameWord", logic.getOrdet());
             intent.putExtra("Guesses", logic.getAntalForkerteBogstaver() + logic.getOrdet().length());
+            finish();
             startActivity(intent);
         }
         if (logic.erSpilletTabt()) {

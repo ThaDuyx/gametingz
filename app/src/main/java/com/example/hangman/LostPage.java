@@ -46,7 +46,6 @@ public class LostPage extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
 
         if(v == btnPlayAgain) {
-            logic.nulstil();
             Intent intent = new Intent(this, GamePage.class);
             startActivity(intent);
         } else {
