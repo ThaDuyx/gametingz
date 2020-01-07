@@ -10,11 +10,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,6 +69,8 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
     private void showErrorMessage() {
         wordFrame.setText("Could not retrieve words");
     }
+    @SuppressLint("SetTextI18n")
+    private void showWaitMessage(){ wordFrame.setText("Please wait...");}
 
     private static class wordsFromSheets extends AsyncTask<String, String, Exception> {
 
@@ -88,6 +85,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         @Override
         protected Exception doInBackground(String... strings) {
             try {
+                activityRef.get().showWaitMessage();
                 logic.hentOrdFraRegneark("2");
                 logic.nulstil();
             } catch (Exception e) {
@@ -123,9 +121,9 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
             editGuess.setError(null);
             logic.gætBogstav(guess);
             if (logic.erSidsteBogstavKorrekt()) {
-                crossFadeAnimation(correctword, correctword, 1000);
+                crossFadeAnimation(correctword, correctword, 500);
             } else if (!logic.erSidsteBogstavKorrekt()) {
-                crossFadeAnimation2(wrongword, wrongword, 1000);
+                crossFadeAnimation(wrongword, wrongword, 500);
             }
             editGuess.setText("");
 
@@ -170,6 +168,10 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    // Ved denne animation er der taget meget inspiration fra dette eksempel fra stackoverflow:
+    // https://stackoverflow.com/a/33265477/11614540
+    // Der er ændret meget lidt til at få en flowy fade-in fade-out
+    //------------------------------------------------------------------
     private void crossFadeAnimation(final View fadeInTarget, final View fadeOutTarget, long duration) {
         AnimatorSet mAnimationSet = new AnimatorSet();
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(fadeOutTarget, View.ALPHA, 1f, 0f);
@@ -201,64 +203,29 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
             }
 
             @Override
-            public void onAnimationEnd(Animator animation) {}
-
-            @Override
-            public void onAnimationCancel(Animator animation) {}
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {}
-        });
-        fadeIn.setInterpolator(new LinearInterpolator());
-        mAnimationSet.setDuration(duration);
-        mAnimationSet.playTogether(fadeOut, fadeIn);
-        mAnimationSet.start();
-    }
-
-    private void crossFadeAnimation2(final View fadeInTarget, final View fadeOutTarget, long duration) {
-        AnimatorSet mAnimationSet = new AnimatorSet();
-        ObjectAnimator fadeOut = ObjectAnimator.ofFloat(fadeOutTarget, View.ALPHA, 1f, 0f);
-        fadeOut.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-            }
-
-            @Override
             public void onAnimationEnd(Animator animation) {
-                fadeOutTarget.setVisibility(View.GONE);
+
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
+
             }
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-            }
-        });
-        fadeOut.setInterpolator(new LinearInterpolator());
 
-        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(fadeInTarget, View.ALPHA, 0f, 1f);
-        fadeIn.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                fadeInTarget.setVisibility(View.VISIBLE);
             }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {}
-
-            @Override
-            public void onAnimationCancel(Animator animation) {}
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {}
         });
         fadeIn.setInterpolator(new LinearInterpolator());
         mAnimationSet.setDuration(duration);
-        mAnimationSet.playTogether(fadeOut, fadeIn);
+        //Dette er ændret så i stedet for at køre animationen samtidig sker det efter hinanden
+        mAnimationSet.playSequentially(fadeIn,fadeOut);
         mAnimationSet.start();
     }
+    //------------------------------------------------------------------
+
 }
 
 

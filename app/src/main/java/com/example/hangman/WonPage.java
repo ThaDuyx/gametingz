@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ public class WonPage extends AppCompatActivity implements View.OnClickListener {
     ImageView hangManpic;
     int numberguesses;
     int winHolder = 0;
+    MediaPlayer mp;
 
     String theCorrectWord;
 
@@ -27,6 +29,9 @@ public class WonPage extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_won_page);
+
+        mp = MediaPlayer.create(this, R.raw.excitedr2d2);
+        mp.start();
 
         hangManpic = findViewById(R.id.hangmanPic3);
         TWwordview = findViewById(R.id.textView7);

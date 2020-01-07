@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +18,17 @@ public class LostPage extends AppCompatActivity implements View.OnClickListener 
     Button btnGoBack;
     String theCorrectWord;
     int looseHolder = 1;
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_page);
+
+
+        mp = MediaPlayer.create(this, R.raw.wilhelmscream);
+        mp.start();
+
 
         TWLost = findViewById(R.id.textView10);
         btnPlayAgain = findViewById(R.id.button2);
@@ -52,5 +59,4 @@ public class LostPage extends AppCompatActivity implements View.OnClickListener 
             startActivity(intent);
         }
     }
-
 }

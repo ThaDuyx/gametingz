@@ -2,6 +2,7 @@ package com.example.hangman;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ public class HelpPage extends AppCompatActivity implements View.OnClickListener 
     int counter = 1;
     Button rightBtn;
     Button leftBtn;
+    Button backBtn;
     TextView helpTV;
     TextView countTV;
 
@@ -20,6 +22,7 @@ public class HelpPage extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_page);
 
+        backBtn = findViewById(R.id.backBtn3);
         rightBtn = findViewById(R.id.rightBtn);
         leftBtn = findViewById(R.id.leftBtn);
         helpTV = findViewById(R.id.helpTV);
@@ -27,6 +30,7 @@ public class HelpPage extends AppCompatActivity implements View.OnClickListener 
 
         rightBtn.setOnClickListener(this);
         leftBtn.setOnClickListener(this);
+        backBtn.setOnClickListener(this);
 
 
     }
@@ -44,6 +48,9 @@ public class HelpPage extends AppCompatActivity implements View.OnClickListener 
             if(counter<1){
                 counter = 1;
             }
+        } else if (v == backBtn){
+            Intent intent = new Intent(this, StartPage.class);
+            startActivity(intent);
         }
 
         switch (counter){
