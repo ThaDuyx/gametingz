@@ -19,6 +19,30 @@
         app:layout_constraintVertical_bias="0.125"
         app:srcCompat="@drawable/galge" />
 
+    <ImageView
+        android:id="@+id/correctImg"
+        android:layout_width="106dp"
+        android:layout_height="136dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.147"
+        app:srcCompat="@drawable/like" />
+
+    <ImageView
+        android:id="@+id/wrongImg"
+        android:layout_width="106dp"
+        android:layout_height="136dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.147"
+        app:srcCompat="@drawable/dislike" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"

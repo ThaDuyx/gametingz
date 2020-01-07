@@ -23,7 +23,6 @@ public class MultiGamePage extends AppCompatActivity implements View.OnClickList
     TextView guessFrame;
     ImageView hangManpic;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +110,4 @@ public class MultiGamePage extends AppCompatActivity implements View.OnClickList
             editGuess.setVisibility(View.GONE);
         }
     }
-
-
-
 }
