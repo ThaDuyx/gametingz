@@ -57,6 +57,9 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         } else if (v == helpBtn) {
             Intent intent = new Intent(this, HelpPage.class);
             startActivity(intent);
+        } else if (v == multiBtn) {
+            Intent intent = new Intent(this, MultiPage.class);
+            startActivity(intent);
         }
     }
 }

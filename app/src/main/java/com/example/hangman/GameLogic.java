@@ -23,18 +23,7 @@ public class GameLogic {
     private boolean spilletErTabt;
 
     public GameLogic() {
-       /*
-        muligeOrd.add("bil");
-        muligeOrd.add("computer");
-        muligeOrd.add("programmering");
-        muligeOrd.add("motorvej");
-        muligeOrd.add("busrute");
-        muligeOrd.add("gangsti");
-        muligeOrd.add("skovsnegl");
-        muligeOrd.add("solsort");
-        muligeOrd.add("nitten");
-        nulstil();
-        */
+
     }
 
 

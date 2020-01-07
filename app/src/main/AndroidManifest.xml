@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MultiPage"></activity>
+        <activity android:name=".MultiGamePage"></activity>
+        <activity android:name=".MultiPage" />
         <activity android:name=".WonPage" />
         <activity android:name=".LostPage" />
         <activity android:name=".HelpPage" />
