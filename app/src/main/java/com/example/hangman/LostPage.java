@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 public class LostPage extends AppCompatActivity implements View.OnClickListener {
 
-    GameLogic logic = new GameLogic();
     TextView TWLost;
     Button btnPlayAgain;
     Button btnGoBack;

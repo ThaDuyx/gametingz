@@ -197,10 +197,11 @@ public class GameLogic {
             String sværhedsgrad = felter[0].trim();
             String ordet = felter[1].trim().toLowerCase();
             if (ordet.isEmpty()) continue; // spring over linjer med tomme ord
+            if (sværhedsgrad.isEmpty()) continue;
             if (!sværhedsgrader.contains(sværhedsgrad)) continue; // filtrér på sværhedsgrader
             muligeOrd.add(ordet);
-        }
 
+        }
         System.out.println("muligeOrd = " + muligeOrd);
         nulstil();
     }

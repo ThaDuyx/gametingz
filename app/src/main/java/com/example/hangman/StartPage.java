@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.view.ViewPropertyAnimator;
 
 public class StartPage extends AppCompatActivity implements View.OnClickListener {
 
     Button startGameBtn;
     Button helpBtn;
+    Button multiBtn;
+
     TextView winHolder;
     TextView looseHolder;
     int wonHolder;
@@ -29,15 +32,17 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
 
         startGameBtn = findViewById(R.id.startGameBtn);
         helpBtn = findViewById(R.id.helpBtn);
+        multiBtn = findViewById(R.id.MultiBtn);
 
         startGameBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
+        multiBtn.setOnClickListener(this);
 
         SharedPreferences sp = getSharedPreferences("sharedPred", Activity.MODE_PRIVATE);
-        wonHolder = sp.getInt("wins",0);
+        wonHolder = sp.getInt("wins", 0);
         winHolder.setText(Integer.toString(wonHolder));
 
-        lostHolder = sp.getInt("losses",0);
+        lostHolder = sp.getInt("losses", 0);
         looseHolder.setText(Integer.toString(lostHolder));
 
     }
@@ -45,15 +50,14 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
-        if(v == startGameBtn){
-          Intent intent = new Intent(this, GamePage.class);
-          startActivity(intent);
+        if (v == startGameBtn) {
+            Intent intent = new Intent(this, GamePage.class);
+            startActivity(intent);
 
-        } else if(v == helpBtn){
+        } else if (v == helpBtn) {
             Intent intent = new Intent(this, HelpPage.class);
             startActivity(intent);
         }
     }
-
 }
 

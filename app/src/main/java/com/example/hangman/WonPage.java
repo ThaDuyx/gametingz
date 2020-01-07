@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 public class WonPage extends AppCompatActivity implements View.OnClickListener {
 
-    GameLogic logic = new GameLogic();
     TextView TWwordview;
     TextView TWtries;
     Button btnplayagan;
