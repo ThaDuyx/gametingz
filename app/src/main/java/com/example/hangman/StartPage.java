@@ -9,13 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.view.ViewPropertyAnimator;
 
 public class StartPage extends AppCompatActivity implements View.OnClickListener {
 
     Button startGameBtn;
     Button helpBtn;
     Button multiBtn;
+    Button hsBtn;
 
     TextView winHolder;
     TextView looseHolder;
@@ -33,10 +33,12 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         startGameBtn = findViewById(R.id.startGameBtn);
         helpBtn = findViewById(R.id.helpBtn);
         multiBtn = findViewById(R.id.MultiBtn);
+        hsBtn = findViewById(R.id.highScoreBtn);
 
         startGameBtn.setOnClickListener(this);
         helpBtn.setOnClickListener(this);
         multiBtn.setOnClickListener(this);
+        hsBtn.setOnClickListener(this);
 
         SharedPreferences sp = getSharedPreferences("sharedPred", Activity.MODE_PRIVATE);
         wonHolder = sp.getInt("wins", 0);
@@ -59,6 +61,9 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
             startActivity(intent);
         } else if (v == multiBtn) {
             Intent intent = new Intent(this, MultiPage.class);
+            startActivity(intent);
+        } else if (v == hsBtn){
+            Intent intent = new Intent(this, HighScorePage.class);
             startActivity(intent);
         }
     }

@@ -31,8 +31,6 @@ public class HelpPage extends AppCompatActivity implements View.OnClickListener 
         rightBtn.setOnClickListener(this);
         leftBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
-
-
     }
 
     @Override

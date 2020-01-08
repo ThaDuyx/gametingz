@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -15,19 +16,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class GamePage extends AppCompatActivity implements View.OnClickListener {
 
+    ArrayList<String> hs = new ArrayList<>();
+    ArrayList<String> date = new ArrayList<>();
     GameLogic logic = new GameLogic();
     Button guessBtn;
     Button backBtn;
     EditText editGuess;
     TextView wordFrame;
     TextView guessFrame;
+    TextView pointsFrame;
     ImageView hangManpic;
     ImageView correctword;
     ImageView wrongword;
+    int score;
+    String scoreStr;
+    String dateStr;
 
 
     @Override
@@ -41,6 +55,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         backBtn = findViewById(R.id.button3);
         editGuess = findViewById(R.id.editGuess);
         hangManpic = findViewById(R.id.hangmanPic);
+        pointsFrame = findViewById(R.id.pointsView);
 
         wrongword = findViewById(R.id.wrongImg);
         correctword = findViewById(R.id.correctImg);
@@ -51,6 +66,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         guessBtn.setOnClickListener(this);
         backBtn.setOnClickListener(this);
         guessFrame.setText("Guess the Word");
+        pointsFrame.setText("Points: ");
 
         //Brugt til AsyncTask metoden
         new wordsFromSheets(this, logic).execute();
@@ -121,9 +137,9 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
             editGuess.setError(null);
             logic.gætBogstav(guess);
             if (logic.erSidsteBogstavKorrekt()) {
-                crossFadeAnimation(correctword, correctword, 500);
+                crossFadeAnimation(correctword, correctword);
             } else if (!logic.erSidsteBogstavKorrekt()) {
-                crossFadeAnimation(wrongword, wrongword, 500);
+                crossFadeAnimation(wrongword, wrongword);
             }
             editGuess.setText("");
 
@@ -143,11 +159,41 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
                 hangManpic.setImageResource(R.drawable.forkert6);
             }
 
+            calculatePoints(score);
             updateScreen();
+
+
         } else if (v == backBtn) {
             Intent intent = new Intent(this, StartPage.class);
             startActivity(intent);
         }
+    }
+
+    private void saveScore(){
+        SharedPreferences sharedPreferences = getSharedPreferences("highscore", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(hs);
+        String json2 = gson.toJson(date);
+        editor.putString("high", json);
+        editor.putString("date", json2);
+        editor.apply();
+    }
+
+    private int calculatePoints(int points){
+        if(logic.erSidsteBogstavKorrekt()){
+            score = points + 10;
+        } else if (!logic.erSidsteBogstavKorrekt()){
+            score = points - 5;
+        }
+        scoreStr = Integer.toString(score);
+        pointsFrame.setText("Points: " + scoreStr);
+        return score;
+    }
+
+    private void setDate(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        dateStr = sdf.format(new Date());
     }
 
     private void updateScreen() {
@@ -155,13 +201,20 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         guessFrame.setText("\n\nDu har " + logic.getAntalForkerteBogstaver() + " forkerte:" + logic.getBrugteBogstaver());
 
         if (logic.erSpilletVundet()) {
+            setDate();
+            date.add(dateStr);
+            hs.add(scoreStr);
+            saveScore();
             Intent intent = new Intent(this, WonPage.class);
             intent.putExtra("gameWord", logic.getOrdet());
             intent.putExtra("Guesses", logic.getAntalForkerteBogstaver() + logic.getOrdet().length());
-            finish();
             startActivity(intent);
         }
         if (logic.erSpilletTabt()) {
+            setDate();
+            date.add(dateStr);
+            hs.add(scoreStr);
+            saveScore();
             Intent intent = new Intent(this, LostPage.class);
             intent.putExtra("gameWord", logic.getOrdet());
             startActivity(intent);
@@ -172,7 +225,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
     // https://stackoverflow.com/a/33265477/11614540
     // Der er ændret meget lidt til at få en flowy fade-in fade-out
     //------------------------------------------------------------------
-    private void crossFadeAnimation(final View fadeInTarget, final View fadeOutTarget, long duration) {
+    private void crossFadeAnimation(final View fadeInTarget, final View fadeOutTarget) {
         AnimatorSet mAnimationSet = new AnimatorSet();
         ObjectAnimator fadeOut = ObjectAnimator.ofFloat(fadeOutTarget, View.ALPHA, 1f, 0f);
         fadeOut.addListener(new Animator.AnimatorListener() {
@@ -219,7 +272,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
 
         });
         fadeIn.setInterpolator(new LinearInterpolator());
-        mAnimationSet.setDuration(duration);
+        mAnimationSet.setDuration((long) 500);
         //Dette er ændret så i stedet for at køre animationen samtidig sker det efter hinanden
         mAnimationSet.playSequentially(fadeIn,fadeOut);
         mAnimationSet.start();
