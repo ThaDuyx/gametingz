@@ -15,7 +15,7 @@ public class GameLogic {
      */
     ArrayList<String> muligeOrd = new ArrayList<String>();
     private String ordet;
-    private ArrayList<String> brugteBogstaver = new ArrayList<String>();
+    ArrayList<String> brugteBogstaver = new ArrayList<String>();
     private String synligtOrd;
     private int antalForkerteBogstaver;
     private boolean sidsteBogstavVarKorrekt;

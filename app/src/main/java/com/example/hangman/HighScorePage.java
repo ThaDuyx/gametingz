@@ -31,7 +31,7 @@ public class HighScorePage extends AppCompatActivity {
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.highscoreRV);
-        RVAdapterLogic rvAdapterLogic = new RVAdapterLogic(date, highscore, this);
+        RVAdapterLogic rvAdapterLogic = new RVAdapterLogic(date, highscore);
         recyclerView.setAdapter(rvAdapterLogic);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

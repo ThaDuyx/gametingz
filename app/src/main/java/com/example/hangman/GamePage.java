@@ -18,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.ref.WeakReference;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,6 +44,8 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
     int score;
     String scoreStr;
     String dateStr;
+    String guessChecker;
+    ArrayList<String> guessLetters = new ArrayList<>();
 
 
     @Override
@@ -70,6 +74,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
 
         //Brugt til AsyncTask metoden
         new wordsFromSheets(this, logic).execute();
+        loadScore();
     }
 
     // Jeg sad i noget tid og prøvede at lave AsyncTask opgaven men uden held.
@@ -127,7 +132,8 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
 
         if (v == guessBtn) {
-            String guess = editGuess.getText().toString();
+             String guess = editGuess.getText().toString();
+             guessChecker = guess;
 
             if (guess.length() != 1) {
                 editGuess.setError("1 letter at a time");
@@ -136,9 +142,9 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
 
             editGuess.setError(null);
             logic.gætBogstav(guess);
-            if (logic.erSidsteBogstavKorrekt()) {
+            if (logic.erSidsteBogstavKorrekt() && !guessLetters.contains(guessChecker)) {
                 crossFadeAnimation(correctword, correctword);
-            } else if (!logic.erSidsteBogstavKorrekt()) {
+            } else if (!logic.erSidsteBogstavKorrekt() && !guessLetters.contains(guessChecker)) {
                 crossFadeAnimation(wrongword, wrongword);
             }
             editGuess.setText("");
@@ -180,12 +186,24 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         editor.apply();
     }
 
+    private void loadScore(){
+        SharedPreferences sharedPreferences = getSharedPreferences("highscore", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("high",null);
+        String json2 = sharedPreferences.getString("date", null);
+        Type type = new TypeToken<ArrayList<String>>(){}.getType();
+        hs = gson.fromJson(json, type);
+        date = gson.fromJson(json2, type);
+
+    }
+
     private int calculatePoints(int points){
-        if(logic.erSidsteBogstavKorrekt()){
+        if(logic.erSidsteBogstavKorrekt() && !guessLetters.contains(guessChecker)){
             score = points + 10;
-        } else if (!logic.erSidsteBogstavKorrekt()){
+        } else if (!logic.erSidsteBogstavKorrekt() && !guessLetters.contains(guessChecker)){
             score = points - 5;
         }
+        guessLetters.add(guessChecker);
         scoreStr = Integer.toString(score);
         pointsFrame.setText("Points: " + scoreStr);
         return score;

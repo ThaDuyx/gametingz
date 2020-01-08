@@ -17,12 +17,10 @@ public class RVAdapterLogic extends RecyclerView.Adapter<RVAdapterLogic.ViewHold
 
     private ArrayList<String> ALDate = new ArrayList<>();
     private ArrayList<String> ALHS = new ArrayList<>();
-    private Context context;
 
-    public RVAdapterLogic(ArrayList<String> ALDate, ArrayList<String> ALHS, Context context) {
+    public RVAdapterLogic(ArrayList<String> ALDate, ArrayList<String> ALHS) {
         this.ALDate = ALDate;
         this.ALHS = ALHS;
-        this.context = context;
     }
 
     @NonNull
