@@ -47,8 +47,7 @@ public class HelpPage extends AppCompatActivity implements View.OnClickListener 
                 counter = 1;
             }
         } else if (v == backBtn){
-            Intent intent = new Intent(this, StartPage.class);
-            startActivity(intent);
+            finish();
         }
 
         switch (counter){

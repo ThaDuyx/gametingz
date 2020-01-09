@@ -55,7 +55,7 @@ public class StartPage extends AppCompatActivity implements View.OnClickListener
         if (v == startGameBtn) {
             Intent intent = new Intent(this, GamePage.class);
             startActivity(intent);
-
+            finish();
         } else if (v == helpBtn) {
             Intent intent = new Intent(this, HelpPage.class);
             startActivity(intent);

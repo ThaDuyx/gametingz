@@ -36,6 +36,7 @@ public class MultiPage extends AppCompatActivity implements AdapterView.OnItemCl
         Intent intent = new Intent(this, MultiGamePage.class);
         intent.putExtra("theWordToBeGuessed", text);
         startActivity(intent);
+        finish();
 
     }
 
@@ -43,8 +44,7 @@ public class MultiPage extends AppCompatActivity implements AdapterView.OnItemCl
     public void onClick(View v) {
 
         if(v == backBtn){
-            Intent intent = new Intent(this, StartPage.class);
-            startActivity(intent);
+            finish();
         }
     }
 }

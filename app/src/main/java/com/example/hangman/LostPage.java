@@ -54,9 +54,19 @@ public class LostPage extends AppCompatActivity implements View.OnClickListener 
         if(v == btnPlayAgain) {
             Intent intent = new Intent(this, GamePage.class);
             startActivity(intent);
+            finish();
         } else {
             Intent intent = new Intent(this, StartPage.class);
             startActivity(intent);
+            finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, StartPage.class);
+        startActivity(intent);
+        finish();
     }
 }

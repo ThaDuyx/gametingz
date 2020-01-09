@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MultiGamePage">
 
+    <Button
+        android:id="@+id/backBtn5"
+        android:layout_width="66dp"
+        android:layout_height="39dp"
+        android:text="back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
     <TextView
         android:id="@+id/wordFrame2"
         android:layout_width="wrap_content"

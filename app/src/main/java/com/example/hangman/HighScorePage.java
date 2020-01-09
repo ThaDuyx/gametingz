@@ -3,19 +3,21 @@ package com.example.hangman;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.telephony.gsm.GsmCellLocation;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HighScorePage extends AppCompatActivity {
 
+
+    // Til løsning af dette er denne youtube video blevet brugt til at lære om RecyclerViews
+    // Desuden med brugen af shared preferences
+    // --- https://www.youtube.com/watch?v=Vyqz_-sJGFk
+    //-----------------------------------------------------------------------------------------------
     private ArrayList<String> highscore = new ArrayList<>();
     private ArrayList<String> date = new ArrayList<>();
 
@@ -42,8 +44,11 @@ public class HighScorePage extends AppCompatActivity {
         String json = sharedPreferences.getString("high",null);
         String json2 = sharedPreferences.getString("date", null);
         Type type = new TypeToken<ArrayList<String>>(){}.getType();
-        highscore = gson.fromJson(json, type);
-        date = gson.fromJson(json2, type);
-
+        if(json != null){
+            date = gson.fromJson(json2, type);
+            highscore = gson.fromJson(json, type);
+            Collections.reverse(date);
+            Collections.reverse(highscore);
+        }
     }
 }

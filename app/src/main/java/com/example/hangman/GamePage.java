@@ -172,9 +172,14 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         } else if (v == backBtn) {
             Intent intent = new Intent(this, StartPage.class);
             startActivity(intent);
+            finish();
         }
     }
 
+    // Til løsning af dette er denne youtube video blevet brugt til at lære om RecyclerViews
+    // Desuden med brugen af shared preferences
+    // --- https://www.youtube.com/watch?v=Vyqz_-sJGFk
+    //-----------------------------------------------------------------------------------------------
     private void saveScore(){
         SharedPreferences sharedPreferences = getSharedPreferences("highscore", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -192,10 +197,13 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
         String json = sharedPreferences.getString("high",null);
         String json2 = sharedPreferences.getString("date", null);
         Type type = new TypeToken<ArrayList<String>>(){}.getType();
-        hs = gson.fromJson(json, type);
-        date = gson.fromJson(json2, type);
+        if (json != null){
+            hs = gson.fromJson(json, type);
+            date = gson.fromJson(json2, type);
+        }
 
     }
+    //-----------------------------------------------------------------------------------------------
 
     private int calculatePoints(int points){
         if(logic.erSidsteBogstavKorrekt() && !guessLetters.contains(guessChecker)){
@@ -227,6 +235,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
             intent.putExtra("gameWord", logic.getOrdet());
             intent.putExtra("Guesses", logic.getAntalForkerteBogstaver() + logic.getOrdet().length());
             startActivity(intent);
+            finish();
         }
         if (logic.erSpilletTabt()) {
             setDate();
@@ -236,6 +245,7 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
             Intent intent = new Intent(this, LostPage.class);
             intent.putExtra("gameWord", logic.getOrdet());
             startActivity(intent);
+            finish();
         }
     }
 
@@ -297,6 +307,15 @@ public class GamePage extends AppCompatActivity implements View.OnClickListener 
     }
     //------------------------------------------------------------------
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, StartPage.class);
+        startActivity(intent);
+        finish();
+
+    }
 }
 
 

@@ -27,8 +27,7 @@ public class RVAdapterLogic extends RecyclerView.Adapter<RVAdapterLogic.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.highscore_layout, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
@@ -40,7 +39,11 @@ public class RVAdapterLogic extends RecyclerView.Adapter<RVAdapterLogic.ViewHold
 
     @Override
     public int getItemCount() {
-        return ALHS.size();
+         if (ALHS == null){
+             return 0;
+         } else {
+             return ALHS.size();
+         }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

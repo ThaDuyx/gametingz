@@ -78,9 +78,19 @@ public class WonPage extends AppCompatActivity implements View.OnClickListener {
         if(v == btnplayagan) {
             Intent intent = new Intent(this, GamePage.class);
             startActivity(intent);
+            finish();
         } else {
             Intent intent = new Intent(this, StartPage.class);
             startActivity(intent);
+            finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, StartPage.class);
+        startActivity(intent);
+        finish();
     }
 }

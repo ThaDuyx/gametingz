@@ -82,14 +82,14 @@
     <Button
         android:id="@+id/highScoreBtn"
         android:layout_width="120dp"
-        android:layout_height="50dp"
-        android:text="Highscore"
+        android:layout_height="54dp"
+        android:text="Recent scores"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68" />
+        app:layout_constraintVertical_bias="0.687" />
 
     <Button
         android:id="@+id/MultiBtn"

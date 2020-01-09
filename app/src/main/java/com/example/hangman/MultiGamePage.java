@@ -18,6 +18,7 @@ public class MultiGamePage extends AppCompatActivity implements View.OnClickList
     Button goToPlay;
     Button goToMenu;
     Button guessBtn;
+    Button goBack;
     EditText editGuess;
     TextView wordFrame;
     TextView guessFrame;
@@ -38,6 +39,8 @@ public class MultiGamePage extends AppCompatActivity implements View.OnClickList
         editGuess = findViewById(R.id.editGuess2);
         hangManpic = findViewById(R.id.hangmanPic4);
 
+
+        goBack = findViewById(R.id.backBtn5);
         goToMenu = findViewById(R.id.menuBtn);
         goToMenu.setVisibility(View.GONE);
         goToPlay = findViewById(R.id.playAgainBtn);
@@ -46,6 +49,7 @@ public class MultiGamePage extends AppCompatActivity implements View.OnClickList
         guessBtn.setOnClickListener(this);
         goToPlay.setOnClickListener(this);
         goToMenu.setOnClickListener(this);
+        goBack.setOnClickListener(this);
 
         wordFrame.setText(logic.getSynligtOrd());
     }
@@ -82,14 +86,24 @@ public class MultiGamePage extends AppCompatActivity implements View.OnClickList
             }
 
             updateScreen();
-        } else if (v == goToPlay){
+        } else if (v.equals(goToPlay)){
             Intent intent = new Intent(this, MultiPage.class);
             startActivity(intent);
-        } else if (v == goToMenu){
-            Intent intent = new Intent(this, StartPage.class);
+            finish();
+        } else if (v.equals(goToMenu)){
+            finish();
+        } else if(v.equals(goBack)){
+            Intent intent = new Intent(this, MultiPage.class);
             startActivity(intent);
-
+            finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MultiPage.class);
+        startActivity(intent);
+        finish();
     }
 
     private void updateScreen(){
